@@ -13,7 +13,7 @@ variable "bucket" {
   sensitive = true
 }
 
-variable "default_variable" {
+variable "default_labels" {
   type = map(string)
   default = {
     "project"     = "ai"
