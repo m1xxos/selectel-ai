@@ -1,8 +1,5 @@
 resource "selectel_vpc_project_v2" "ai_project" {
   name = "ai-project"
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "random_password" "sa_pass" {
