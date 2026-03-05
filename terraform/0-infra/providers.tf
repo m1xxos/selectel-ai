@@ -3,7 +3,7 @@ terraform {
     endpoint                    = "https://storage.yandexcloud.net"
     region                      = "ru-central1"
     bucket                      = var.bucket
-    key                         = "yc-ai.tfstate"
+    key                         = "selectel-ai.tfstate"
     access_key                  = var.access_key
     secret_key                  = var.secret_key
     skip_region_validation      = true
@@ -11,20 +11,20 @@ terraform {
     skip_requesting_account_id  = true
     skip_s3_checksum            = true
   }
-}
-
-
-terraform {
   required_providers {
-    yandex = {
-      source  = "yandex-cloud/yandex"
-      version = "0.190.0"
+    selectel  = {
+      source  = "selectel/selectel"
+      version = "7.5.4"
+    }
+    openstack = {
+      source  = "terraform-provider-openstack/openstack"
+      version = "2.1.0"
     }
   }
-  required_version = ">= 0.13"
 }
 
-
-provider "yandex" {
-  zone = "ru-central1-b"
+provider "selectel" {
+  domain_name = "553508"
+  auth_region = "ru-9"
+  auth_url    = "https://cloud.api.selcloud.ru/identity/v3/"
 }
