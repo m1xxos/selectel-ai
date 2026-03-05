@@ -1,20 +1,20 @@
-resource "selectel_vpc_project_v2" "ai-project" {
+resource "selectel_vpc_project_v2" "ai_project" {
   name = "ai-project"
   lifecycle {
     prevent_destroy = true
   }
 }
 
-resource "random_password" "sa-pass" {
+resource "random_password" "sa_pass" {
   length = 20
 }
 
-resource "selectel_iam_serviceuser_v1" "ai-sa" {
-  name         = "ai-sa"
-  password     = random_password.sa-pass.result
+resource "selectel_iam_serviceuser_v1" "ai_sa" {
+  name     = "ai_sa"
+  password = random_password.sa_pass.result
   role {
     role_name  = "member"
     scope      = "project"
-    project_id = selectel_vpc_project_v2.ai-project.id
+    project_id = selectel_vpc_project_v2.ai_project.id
   }
 }
