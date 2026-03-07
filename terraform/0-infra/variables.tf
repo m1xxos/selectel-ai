@@ -20,3 +20,7 @@ variable "default_labels" {
     "environment" = "prod"
   }
 }
+
+variable "project_id" {
+  sensitive = true
+}
