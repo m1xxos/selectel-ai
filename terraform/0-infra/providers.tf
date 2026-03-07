@@ -34,7 +34,7 @@ provider "selectel" {
 
 provider "openstack" {
   auth_url  = "https://cloud.api.selcloud.ru/identity/v3"
-  tenant_id = selectel_vpc_project_v2.ai_project.id
+  tenant_id = var.project_id
   user_name = selectel_iam_serviceuser_v1.ai_sa.name
   password  = selectel_iam_serviceuser_v1.ai_sa.password
   region    = "ru-9"

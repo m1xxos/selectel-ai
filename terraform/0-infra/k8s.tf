@@ -1,11 +1,11 @@
 data "selectel_mks_kube_versions_v1" "versions" {
-  project_id = selectel_vpc_project_v2.ai_project.id
+  project_id = var.project_id
   region     = "ru-9"
 }
 
 resource "selectel_mks_cluster_v1" "ai_cluster" {
   name                              = "ai-cluster"
-  project_id                        = selectel_vpc_project_v2.ai_project.id
+  project_id                        = var.project_id
   region                            = "ru-9"
   kube_version                      = data.selectel_mks_kube_versions_v1.versions.latest_version
   zonal                             = true
