@@ -24,3 +24,8 @@ variable "default_labels" {
 variable "project_id" {
   sensitive = true
 }
+
+variable "region" {
+  type = string
+  default = "ru-9"
+}
