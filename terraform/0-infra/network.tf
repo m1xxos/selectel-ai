@@ -87,11 +87,3 @@ resource "openstack_networking_secgroup_rule_v2" "internal" {
   remote_ip_prefix  = openstack_networking_subnet_v2.ai_subnet.cidr
   security_group_id = openstack_networking_secgroup_v2.ai_secgroup.id
 }
-
-resource "openstack_networking_secgroup_rule_v2" "egress_all" {
-  direction         = "egress"
-  ethertype         = "IPv4"
-  protocol          = ""
-  remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = openstack_networking_secgroup_v2.ai_secgroup.id
-}
