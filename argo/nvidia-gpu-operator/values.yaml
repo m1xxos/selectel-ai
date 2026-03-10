@@ -1,0 +1,15 @@
+gpu-operator:
+  driver:
+    enabled: true
+
+  toolkit:
+    enabled: true
+
+  devicePlugin:
+    enabled: true
+
+  dcgmExporter:
+    enabled: true
+
+  operator:
+    defaultRuntime: containerd

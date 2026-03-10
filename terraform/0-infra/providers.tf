@@ -1,16 +1,4 @@
 terraform {
-  backend "s3" {
-    endpoint                    = "https://storage.yandexcloud.net"
-    region                      = "ru-central1"
-    bucket                      = var.bucket
-    key                         = "selectel-ai.tfstate"
-    access_key                  = var.access_key
-    secret_key                  = var.secret_key
-    skip_region_validation      = true
-    skip_credentials_validation = true
-    skip_requesting_account_id  = true
-    skip_s3_checksum            = true
-  }
   required_providers {
     selectel = {
       source  = "selectel/selectel"
@@ -24,12 +12,40 @@ terraform {
       source  = "hashicorp/random"
       version = "3.8.1"
     }
+    infisical = {
+      source  = "infisical/infisical"
+      version = "~> 0.13"
+    }
   }
+}
+
+ephemeral "infisical_secret" "selectel_username" {
+  name         = "selectel_username"
+  env_slug     = local.infisical_env_slug
+  folder_path  = local.infisical_folder_path
+  workspace_id = local.infisical_workspace_id
+}
+
+ephemeral "infisical_secret" "selectel_password" {
+  name         = "selectel_password"
+  env_slug     = local.infisical_env_slug
+  folder_path  = local.infisical_folder_path
+  workspace_id = local.infisical_workspace_id
+}
+
+ephemeral "infisical_secret" "selectel_domain_name" {
+  name         = "selectel_domain_name"
+  env_slug     = local.infisical_env_slug
+  folder_path  = local.infisical_folder_path
+  workspace_id = local.infisical_workspace_id
 }
 
 provider "selectel" {
   auth_region = "ru-9"
   auth_url    = "https://cloud.api.selcloud.ru/identity/v3/"
+  username    = ephemeral.infisical_secret.selectel_username.value
+  password    = ephemeral.infisical_secret.selectel_password.value
+  domain_name = ephemeral.infisical_secret.selectel_domain_name.value
 }
 
 provider "openstack" {

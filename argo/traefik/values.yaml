@@ -1,0 +1,33 @@
+traefik:
+  service:
+    type: LoadBalancer
+
+  providers:
+    kubernetesGateway:
+      enabled: true
+
+  gateway:
+    enabled: false
+
+  experimental:
+    kubernetesGateway:
+      enabled: true
+
+  additionalArguments:
+  - "--experimental.kubernetesgateway"
+
+  ingressRoute:
+    dashboard:
+      enabled: false
+
+  ports:
+    web:
+      port: 8000
+      exposedPort: 80
+      protocol: TCP
+    websecure:
+      port: 8443
+      exposedPort: 443
+      protocol: TCP
+      tls:
+        enabled: true
