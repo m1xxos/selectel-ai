@@ -2,13 +2,6 @@ traefik:
   service:
     type: LoadBalancer
 
-  providers:
-    kubernetesGateway:
-      enabled: true
-
-  gateway:
-    enabled: false
-
   ingressRoute:
     dashboard:
       enabled: false

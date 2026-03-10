@@ -1,6 +1,6 @@
 apiVersion: v2
 name: traefik
-description: Traefik ingress controller with Gateway API support
+description: Traefik ingress controller
 version: 1.0.0
 type: application
 
