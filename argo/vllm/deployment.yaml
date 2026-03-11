@@ -30,18 +30,11 @@ spec:
         image: vllm/vllm-openai:v0.17.0
         args:
         - "--model"
-        - "openai/gpt-oss-20b"
+        - "Qwen/Qwen3.5-9B"
         - "--max-model-len"
-        - "32768"
+        - "65536"
         - "--gpu-memory-utilization"
         - "0.95"
-        - "--quantization"
-        - "fp8"
-        - "--api-key-file"
-        - "/secrets/api-key"
-        env:
-        - name: VLLM_WORKER_MULTIPROC_METHOD
-          value: "spawn"
         ports:
         - containerPort: 8000
           name: http
@@ -49,11 +42,8 @@ spec:
         resources:
           limits:
             nvidia.com/gpu: 1
-            memory: 32Gi
           requests:
             nvidia.com/gpu: 1
-            cpu: "2"
-            memory: 16Gi
         volumeMounts:
         - name: model-cache
           mountPath: /root/.cache/huggingface
@@ -80,6 +70,3 @@ spec:
       - name: model-cache
         persistentVolumeClaim:
           claimName: model-cache
-      - name: api-key
-        secret:
-          secretName: vllm-api-key
