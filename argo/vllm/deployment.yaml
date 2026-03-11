@@ -30,11 +30,9 @@ spec:
         image: vllm/vllm-openai:v0.17.0
         args:
         - "--model"
-        - "unsloth/gpt-oss-20b-GGUF"
+        - "openai/gpt-oss-20b"
         - "--max-model-len"
         - "32768"
-        - "--quantization"
-        - "gguf"
         - "--gpu-memory-utilization"
         - "0.95"
         ports:

@@ -1,5 +1,5 @@
 resource "random_password" "sa_pass" {
-  length = 20
+  length = 22
 }
 
 resource "selectel_iam_serviceuser_v1" "ai_sa" {
