@@ -10,10 +10,10 @@ provider "registry.terraform.io/hashicorp/random" {
 }
 
 provider "registry.terraform.io/infisical/infisical" {
-  version     = "0.16.5"
+  version     = "0.16.6"
   constraints = "~> 0.13"
   hashes = [
-    "h1:Evwph/faDu6HmuYL6W0BTJ/v4ek+6OtAcULm7yCivM8=",
+    "h1:gZPp3Pu+X0wBe3kNxywIdBPER3PNwVugYuClcse5UAQ=",
   ]
 }
 

@@ -35,6 +35,13 @@ spec:
         - "32768"
         - "--gpu-memory-utilization"
         - "0.95"
+        - "--quantization"
+        - "fp8"
+        - "--api-key-file"
+        - "/secrets/api-key"
+        env:
+        - name: VLLM_WORKER_MULTIPROC_METHOD
+          value: "spawn"
         ports:
         - containerPort: 8000
           name: http
@@ -42,24 +49,37 @@ spec:
         resources:
           limits:
             nvidia.com/gpu: 1
+            memory: 32Gi
           requests:
             nvidia.com/gpu: 1
+            cpu: "2"
+            memory: 16Gi
         volumeMounts:
         - name: model-cache
           mountPath: /root/.cache/huggingface
+        - name: api-key
+          mountPath: /secrets
+          readOnly: true
+        startupProbe:
+          httpGet:
+            path: /health
+            port: http
+          failureThreshold: 120
+          periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
             port: http
-          initialDelaySeconds: 120
           periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /health
             port: http
-          initialDelaySeconds: 180
           periodSeconds: 30
       volumes:
       - name: model-cache
-        emptyDir:
-          sizeLimit: 15Gi
+        persistentVolumeClaim:
+          claimName: model-cache
+      - name: api-key
+        secret:
+          secretName: vllm-api-key

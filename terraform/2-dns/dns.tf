@@ -3,8 +3,6 @@ data "kubernetes_service_v1" "traefik" {
     name      = "traefik"
     namespace = "traefik"
   }
-
-  depends_on = [kubernetes_manifest.appset]
 }
 
 resource "cloudflare_dns_record" "gpt" {

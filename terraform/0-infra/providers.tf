@@ -19,6 +19,22 @@ terraform {
   }
 }
 
+locals {
+  infisical_env_slug     = "prod"
+  infisical_folder_path  = "/"
+  infisical_workspace_id = "cc160c9f-8470-482f-a8da-350d68337f48"
+}
+
+provider "infisical" {
+  host = "https://infisical.home.m1xxos.tech"
+  auth = {
+    universal = {
+      client_id     = var.infisical_id
+      client_secret = var.infisical_secret
+    }
+  }
+}
+
 ephemeral "infisical_secret" "selectel_username" {
   name         = "selectel_username"
   env_slug     = local.infisical_env_slug
@@ -49,9 +65,10 @@ provider "selectel" {
 }
 
 provider "openstack" {
-  auth_url  = "https://cloud.api.selcloud.ru/identity/v3"
-  tenant_id = var.project_id
-  user_name = selectel_iam_serviceuser_v1.ai_sa.name
-  password  = selectel_iam_serviceuser_v1.ai_sa.password
-  region    = "ru-9"
+  auth_url         = "https://cloud.api.selcloud.ru/identity/v3"
+  tenant_id        = var.project_id
+  user_name        = selectel_iam_serviceuser_v1.ai_sa.name
+  password         = selectel_iam_serviceuser_v1.ai_sa.password
+  user_domain_name = ephemeral.infisical_secret.selectel_domain_name.value
+  region           = "ru-9"
 }
