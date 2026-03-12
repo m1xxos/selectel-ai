@@ -9,10 +9,7 @@ open-webui:
   openaiApiKey: "none"
 
   persistence:
-    enabled: true
-    provider: local
-    size: 2Gi
-    storageClass: ""
+    enabled: false
 
   ingress:
     enabled: true
